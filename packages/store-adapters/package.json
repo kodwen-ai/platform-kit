@@ -1,0 +1,57 @@
+{
+  "name": "@kodwen/store-adapters",
+  "version": "0.1.1",
+  "description": "One interface over app stores and registries (Google Play, Microsoft Store, Firebase App Distribution, GitHub Releases, npm/PyPI/MCP registry): upload, tracks, staged rollout halt/resume, listings, review status.",
+  "type": "module",
+  "license": "Apache-2.0",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "!dist/**/*.map",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "keywords": [
+    "codai",
+    "platform",
+    "store-adapters"
+  ],
+  "homepage": "https://kodwen.com",
+  "bugs": "https://github.com/kodwen-ai/platform-kit/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kodwen-ai/platform-kit.git",
+    "directory": "packages/store-adapters"
+  },
+  "scripts": {
+    "lint": "echo 'lint runs in the codai monorepo'",
+    "typecheck": "tsc --noEmit",
+    "build": "tsdown",
+    "test": "vitest run",
+    "clean": "rm -rf .turbo dist"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.1",
+    "fast-check": "^4.10.2",
+    "tsdown": "^0.23.1",
+    "typescript": "^6.0.3",
+    "vitest": "^5.0.5"
+  }
+}

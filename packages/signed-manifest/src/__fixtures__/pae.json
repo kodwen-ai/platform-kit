@@ -1,0 +1,26 @@
+[
+  {
+    "name": "dsse spec example",
+    "type": "http://example.com/HelloWorld",
+    "body": "hello world",
+    "pae_hex": "44535345763120323920687474703a2f2f6578616d706c652e636f6d2f48656c6c6f576f726c642031312068656c6c6f20776f726c64"
+  },
+  {
+    "name": "codai payload type, small json",
+    "type": "application/vnd.codai.rules+json;v=1",
+    "body": "{\"a\":1}",
+    "pae_hex": "445353457631203336206170706c69636174696f6e2f766e642e636f6461692e72756c65732b6a736f6e3b763d312037207b2261223a317d"
+  },
+  {
+    "name": "empty body",
+    "type": "application/vnd.codai.rules+json;v=1",
+    "body": "",
+    "pae_hex": "445353457631203336206170706c69636174696f6e2f766e642e636f6461692e72756c65732b6a736f6e3b763d31203020"
+  },
+  {
+    "name": "multibyte body length counts bytes not chars",
+    "type": "x",
+    "body": "ăî€😀",
+    "pae_hex": "4453534576312031207820313120c483c3aee282acf09f9880"
+  }
+]

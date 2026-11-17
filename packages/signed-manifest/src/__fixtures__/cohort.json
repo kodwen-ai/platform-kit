@@ -1,0 +1,18 @@
+[
+  { "prefix": "", "seed": "abc", "cohort": 74 },
+  { "prefix": "", "seed": "seed-1", "cohort": 16 },
+  { "prefix": "", "seed": "install-0", "cohort": 34 },
+  { "prefix": "", "seed": "install-42", "cohort": 48 },
+  { "prefix": "", "seed": "d0", "cohort": 43 },
+  { "prefix": "", "seed": "d499", "cohort": 85 },
+  { "prefix": "", "seed": "", "cohort": 52 },
+  { "prefix": "", "seed": "ăî€😀", "cohort": 36 },
+  { "prefix": "codai-update-cohort:", "seed": "abc", "cohort": 75 },
+  { "prefix": "codai-update-cohort:", "seed": "seed-1", "cohort": 59 },
+  { "prefix": "codai-update-cohort:", "seed": "install-0", "cohort": 40 },
+  { "prefix": "codai-update-cohort:", "seed": "install-42", "cohort": 54 },
+  { "prefix": "codai-update-cohort:", "seed": "d0", "cohort": 17 },
+  { "prefix": "codai-update-cohort:", "seed": "d499", "cohort": 74 },
+  { "prefix": "codai-update-cohort:", "seed": "", "cohort": 49 },
+  { "prefix": "codai-update-cohort:", "seed": "ăî€😀", "cohort": 14 }
+]

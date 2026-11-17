@@ -1,0 +1,60 @@
+{
+  "name": "@kodwen/signed-manifest",
+  "version": "0.1.1",
+  "description": "DSSE envelopes over RFC 8785 JCS payloads with ECDSA P-256 (Cloud KMS or local keys): signed release manifests with rollout, channel and pull directives, deterministic cohorts.",
+  "type": "module",
+  "license": "Apache-2.0",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "!dist/**/*.map",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "keywords": [
+    "codai",
+    "platform",
+    "signed-manifest"
+  ],
+  "homepage": "https://kodwen.com",
+  "bugs": "https://github.com/kodwen-ai/platform-kit/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kodwen-ai/platform-kit.git",
+    "directory": "packages/signed-manifest"
+  },
+  "scripts": {
+    "lint": "echo 'lint runs in the codai monorepo'",
+    "typecheck": "tsc --noEmit",
+    "build": "tsdown",
+    "test": "vitest run",
+    "clean": "rm -rf .turbo dist"
+  },
+  "dependencies": {
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.1",
+    "fast-check": "^4.10.2",
+    "tsdown": "^0.23.1",
+    "typescript": "^6.0.3",
+    "vitest": "^5.0.5"
+  }
+}

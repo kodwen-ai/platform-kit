@@ -1,0 +1,96 @@
+[
+  {
+    "name": "rfc8785 \u00a73.2.3 key sorting + whitespace removal",
+    "input": {
+      "numbers": [
+        333333333.3333333,
+        1e+30,
+        4.5,
+        0.002,
+        1e-7
+      ],
+      "string": "\u20ac$\u000f\nA'B\"\\\\\"/",
+      "literals": [
+        null,
+        true,
+        false
+      ]
+    },
+    "canonical": "{\"literals\":[null,true,false],\"numbers\":[333333333.3333333,1e+30,4.5,0.002,1e-7],\"string\":\"\u20ac$\\u000f\\nA'B\\\"\\\\\\\\\\\"/\"}"
+  },
+  {
+    "name": "rfc8785 \u00a73.2.3 unicode key ordering by utf-16 code units",
+    "input": {
+      "1": "One",
+      "\u20ac": "Euro Sign",
+      "\r": "Carriage Return",
+      "\ufb33": "Hebrew Letter Dalet With Dagesh",
+      "\ud83d\ude00": "Emoji: Grinning Face",
+      "\u0080": "Control",
+      "\u00f6": "Latin Small Letter O With Diaeresis"
+    },
+    "canonical": "{\"\\r\":\"Carriage Return\",\"1\":\"One\",\"\u0080\":\"Control\",\"\u00f6\":\"Latin Small Letter O With Diaeresis\",\"\u20ac\":\"Euro Sign\",\"\ud83d\ude00\":\"Emoji: Grinning Face\",\"\ufb33\":\"Hebrew Letter Dalet With Dagesh\"}"
+  },
+  {
+    "name": "nested objects and arrays keep array order",
+    "input": {
+      "b": [
+        3,
+        {
+          "z": 1,
+          "a": 2
+        },
+        "x"
+      ],
+      "a": {
+        "d": null,
+        "c": []
+      }
+    },
+    "canonical": "{\"a\":{\"c\":[],\"d\":null},\"b\":[3,{\"a\":2,\"z\":1},\"x\"]}"
+  },
+  {
+    "name": "number edge cases per ES Number::toString",
+    "input": [
+      0,
+      0,
+      1,
+      100,
+      1e+21,
+      0.000001,
+      1e-7,
+      0.1,
+      9007199254740992,
+      123456789012345680000
+    ],
+    "canonical": "[0,0,1,100,1e+21,0.000001,1e-7,0.1,9007199254740992,123456789012345680000]"
+  },
+  {
+    "name": "string escapes: control chars use \\uXXXX lowercase hex, quotes and backslash escaped, slash not escaped",
+    "input": "\u0000\u001f\"\\/\b\f\n\r\t",
+    "canonical": "\"\\u0000\\u001f\\\"\\\\/\\b\\f\\n\\r\\t\""
+  },
+  {
+    "name": "empty containers",
+    "input": {
+      "e": {},
+      "a": []
+    },
+    "canonical": "{\"a\":[],\"e\":{}}"
+  },
+  {
+    "name": "romanian diacritics and emoji pass through unescaped",
+    "input": {
+      "ro": "Plat\u0103 peste mandat \u2014 interzis.",
+      "emoji": "\ud83d\ude00"
+    },
+    "canonical": "{\"emoji\":\"\ud83d\ude00\",\"ro\":\"Plat\u0103 peste mandat \u2014 interzis.\"}"
+  },
+  {
+    "name": "lone surrogate aborts",
+    "input": {
+      "s": "\ud800"
+    },
+    "error": "lone high surrogate"
+  }
+]

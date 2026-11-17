@@ -1,0 +1,60 @@
+{
+  "name": "@kodwen/cost-connectors",
+  "version": "0.1.1",
+  "description": "Cloud and SaaS cost connectors normalised to FOCUS 1.2+ rows (GCP BigQuery billing export, Vercel FOCUS charges) with idempotent billing-period re-ingest.",
+  "type": "module",
+  "license": "Apache-2.0",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "!dist/**/*.map",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "keywords": [
+    "codai",
+    "platform",
+    "cost-connectors"
+  ],
+  "homepage": "https://kodwen.com",
+  "bugs": "https://github.com/kodwen-ai/platform-kit/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kodwen-ai/platform-kit.git",
+    "directory": "packages/cost-connectors"
+  },
+  "scripts": {
+    "lint": "echo 'lint runs in the codai monorepo'",
+    "typecheck": "tsc --noEmit",
+    "build": "tsdown",
+    "test": "vitest run",
+    "clean": "rm -rf .turbo dist"
+  },
+  "dependencies": {
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.1",
+    "fast-check": "^4.10.2",
+    "tsdown": "^0.23.1",
+    "typescript": "^6.0.3",
+    "vitest": "^5.0.5"
+  }
+}

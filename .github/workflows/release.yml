@@ -1,0 +1,72 @@
+name: Release
+
+# Publishes every @codai/* platform-kit package whose version is not yet on npm,
+# via Changesets (`changeset publish` = publish unpublished versions + git tags)
+# with npm trusted publishing (OIDC). No NPM_TOKEN: npm/pnpm exchange the GitHub
+# id-token for a short-lived credential and attach provenance.
+#
+# This repo is a generated mirror of codai-ro/codai-cc packages/{app-platform,
+# webhooks,signed-manifest,store-adapters,cost-connectors,release-sdk}; versions
+# and CHANGELOGs are bumped in the monorepo, never here.
+#
+# Modes (repo variable NPM_PUBLISH_MODE): "stage" (default) = `npm stage publish`,
+# a maintainer approves each version with 2FA on npmjs.com; this is also how a
+# brand-new package name is created under OIDC. "publish" = direct publish.
+# One-time per package on npmjs.com: Settings -> Trusted publishing -> GitHub
+# Actions -> repository codai-ro/platform-kit, workflow release.yml.
+# Trusted publishing only works on GitHub-hosted runners.
+on:
+  push:
+    tags: ['release-*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    permissions:
+      contents: write # changeset publish creates per-package git tags
+      id-token: write # npm trusted publishing (OIDC) + provenance
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v5.0.0
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+      - name: npm >= 11.5.1 (trusted publishing)
+        run: |
+          npm --version
+          node -e 'const [a,b,c]=process.argv[1].split(".").map(Number); if (a<11||(a===11&&(b<5||(b===5&&c<1)))) { console.error("npm too old for trusted publishing"); process.exit(1); }' "$(npm --version)"
+      - run: pnpm install --no-frozen-lockfile
+      - run: pnpm -r build
+      - run: pnpm -r typecheck
+      - run: pnpm -r test
+      - name: Stage / publish unpublished versions (OIDC + provenance)
+        run: node scripts/publish-kit.mjs
+        env:
+          NPM_PUBLISH_MODE: ${{ vars.NPM_PUBLISH_MODE || 'stage' }}
+      - name: Verify every version is on the registry
+        if: ${{ vars.NPM_PUBLISH_MODE == 'publish' }}
+        shell: bash
+        run: |
+          for i in $(seq 1 20); do
+            ok=1
+            for name in $(node -p "Object.keys(require('./versions.json')).join(' ')"); do
+              ver=$(node -p "require('./versions.json')['$name']")
+              got=$(npm view "$name@$ver" version 2>/dev/null || true)
+              if [ "$got" != "$ver" ]; then ok=0; echo "waiting for $name@$ver"; fi
+            done
+            if [ "$ok" = 1 ]; then echo "all versions live"; exit 0; fi
+            sleep 30
+          done
+          exit 1

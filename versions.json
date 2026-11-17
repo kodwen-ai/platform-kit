@@ -1,0 +1,8 @@
+{
+  "@kodwen/app-platform": "0.2.1",
+  "@kodwen/webhooks": "0.1.1",
+  "@kodwen/signed-manifest": "0.1.1",
+  "@kodwen/store-adapters": "0.1.1",
+  "@kodwen/cost-connectors": "0.1.1",
+  "@kodwen/release-sdk": "0.1.1"
+}
